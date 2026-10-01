@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  # ── Frontend ────────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - policy-ai-net
+
+  # ── Backend ─────────────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+      - ./data:/data
+    networks:
+      - policy-ai-net
+
+  # ── Placeholder: Add database / vector DB services here ─────────────────────
+  # Example:
+  # postgres:
+  #   image: postgres:16
+  #   environment:
+  #     POSTGRES_DB: policyai
+  #     POSTGRES_USER: policyai
+  #     POSTGRES_PASSWORD: changeme
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - policy-ai-net
+
+networks:
+  policy-ai-net:
+    driver: bridge
+
+volumes:
+  data:

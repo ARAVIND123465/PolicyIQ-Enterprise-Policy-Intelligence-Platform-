@@ -1,0 +1,38 @@
+# ── PolicyAI Backend — Python Dependencies ────────────────────────────────────
+#
+# Install:  pip install -r requirements.txt
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Web framework ─────────────────────────────────────────────────────────────
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+
+# ── Data validation ───────────────────────────────────────────────────────────
+pydantic==2.10.3
+pydantic-settings==2.6.1
+
+# ── Environment variables ─────────────────────────────────────────────────────
+python-dotenv==1.0.1
+
+# ── File upload support ───────────────────────────────────────────────────────
+python-multipart==0.0.18
+
+# ── HTTP client ───────────────────────────────────────────────────────────────
+httpx==0.28.1
+
+# ── RAG — LangChain core ─────────────────────────────────────────────────────
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+
+# ── RAG — Google Gemini (embeddings + LLM) ───────────────────────────────────
+langchain-google-genai
+google-generativeai
+
+# ── RAG — Vector store ───────────────────────────────────────────────────────
+faiss-cpu
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+pytest==8.3.4
+pytest-asyncio==0.24.0
