@@ -5,12 +5,13 @@
 import axios from 'axios'
 
 const getBaseURL = () => {
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL
+  const envUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL
+  if (envUrl) {
+    return envUrl.replace(/\/+$/, '')
   }
-  if (typeof window !== 'undefined' && window.location.hostname) {
-    const host = window.location.hostname === 'localhost' ? '127.0.0.1' : window.location.hostname
-    return `http://${host}:8000`
+  // Production fallback: do not call localhost:8000 when deployed on an HTTPS domain
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return 'https://policy-iq-enterprise-policy-intelli-three.vercel.app'
   }
   return 'http://127.0.0.1:8000'
 }
@@ -25,28 +26,48 @@ const api = axios.create({
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    const detail = err.response?.data?.detail
-    const msg =
-      (typeof detail === 'string'
-        ? detail
-        : Array.isArray(detail)
-        ? detail.map((d) => d.msg || JSON.stringify(d)).join(', ')
-        : null) ||
-      err.response?.data?.message ||
-      err.message ||
-      'An unexpected error occurred'
+    let msg = 'An unexpected error occurred'
+    if (err.response?.data) {
+      const detail = err.response.data.detail
+      msg =
+        (typeof detail === 'string'
+          ? detail
+          : Array.isArray(detail)
+          ? detail.map((d) => d.msg || JSON.stringify(d)).join(', ')
+          : null) ||
+        err.response.data.message ||
+        `Backend error: ${err.response.status} ${err.response.statusText}`
+    } else if (err.request) {
+      if (err.message === 'Network Error') {
+        msg = `Network Error: Unable to reach backend at ${err.config?.baseURL || getBaseURL()}. Check CORS settings, internet connection, or verify the backend is running.`
+      } else {
+        msg = `Network Error: ${err.message || 'No response received from server'}`
+      }
+    } else {
+      msg = err.message || 'Request setup error'
+    }
     return Promise.reject(new Error(msg))
   },
 )
 
 // ── Chat ──────────────────────────────────────────────────────────────────
 export async function sendChatMessage({ message, conversationId = null, topK = 5 }) {
-  const res = await api.post('/api/chat', {
+  const payload = {
     message,
     conversation_id: conversationId,
     top_k: topK,
-  })
-  return res.data
+  }
+  try {
+    const res = await api.post('/chat', payload)
+    return res.data
+  } catch (err) {
+    // Graceful fallback to /api/chat if /chat alias is not yet deployed on backend
+    if (err.response?.status === 404) {
+      const fallbackRes = await api.post('/api/chat', payload)
+      return fallbackRes.data
+    }
+    throw err
+  }
 }
 
 export async function getChatHistory() {

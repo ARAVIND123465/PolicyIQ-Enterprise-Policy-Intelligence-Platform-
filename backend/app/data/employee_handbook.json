@@ -1,0 +1,342 @@
+{
+  "metadata": {
+    "title": "Sample Employee Handbook",
+    "publisher": "Public Counsel - Community Development Project",
+    "date": "August 2017",
+    "jurisdiction": "California (Los Angeles County)",
+    "audience": "Nonprofits and small businesses",
+    "disclaimer": "Not legal advice. Must be modified and reviewed by an attorney before use as a final handbook.",
+    "placeholders": ["[ORGANIZATION]", "[TITLE]", "[NAME]", "[FISCAL YEAR]", "[INSERT NUMBER]"],
+    "note": "Content is condensed from the source PDF; legal_notes hold the source footnotes."
+  },
+  "records": [
+    {
+      "id": "0",
+      "part": "Front Matter",
+      "section": "Welcome",
+      "title": "Welcome to [ORGANIZATION]",
+      "content": "Welcome letter from the President/Executive Director. Each employee contributes to the organization's growth. The handbook outlines expectations, policies, programs and benefits for eligible employees; questions go to [NAME, TITLE].",
+      "legal_notes": []
+    },
+    {
+      "id": "I.A",
+      "part": "I. Introduction",
+      "section": "A",
+      "title": "The Organization",
+      "content": "Describes the organization's mission statement, further detail and optional narrative history (all placeholders to be completed).",
+      "legal_notes": []
+    },
+    {
+      "id": "II.A",
+      "part": "II. General Employment Information",
+      "section": "A",
+      "title": "Employment At-Will",
+      "content": "Employees without a separate fixed-term written contract are at-will: either party may end employment at any time, with or without cause or notice. Only the Board, via a written agreement signed by a Board Officer, can change this. The organization may change the handbook and any policy at any time without prior notice. Pre-hire statements and recruiting materials do not alter at-will status. The handbook creates no express or implied contract; listed grounds for termination are examples only. Completing an introductory period does not change at-will status.",
+      "legal_notes": [
+        "i: Despite the right to change policies without notice, notice may still be required for new or changed policies to become effective.",
+        "ii: Handbook statements can create enforceable obligations despite disclaimers. Policies such as progressive discipline may create an implied contract for termination only for good cause. Employer must be willing to follow the policies it adopts."
+      ]
+    },
+    {
+      "id": "II.B",
+      "part": "II. General Employment Information",
+      "section": "B",
+      "title": "Equal Employment Opportunity",
+      "content": "Equal opportunity employer complying with federal, state and local law. No discrimination based on race, color, ancestry, national origin (including language use), citizenship, religion (including dress and grooming), sex (including pregnancy, childbirth, breastfeeding and related conditions), marital or domestic partnership status, sexual orientation, gender, gender identity or expression, military or veteran status, family care or medical leave status, age, physical or mental disability, medical condition, genetic information, political affiliation, or any other protected basis. Applies to recruitment, hiring, training, promotion, compensation, benefits, transfer, discipline and social programs. Concerns go to [TITLE]; no retaliation; violations lead to discipline up to termination.",
+      "legal_notes": []
+    },
+    {
+      "id": "II.C",
+      "part": "II. General Employment Information",
+      "section": "C",
+      "title": "Harassment",
+      "content": "Organization will not tolerate harassment (including sexual harassment and harassment on any protected basis, victim status of domestic violence/sexual assault/stalking, or enrollment in public assistance) of applicants, employees, unpaid interns or volunteers by employees, of non-employees by employees, or of employees by non-employees. Harassment includes verbal, physical and visual conduct creating an intimidating, offensive or hostile environment, conditioning employment on submission, or using submission/rejection as the basis for employment decisions. Examples: verbal (jokes, slurs), physical (assault, blocking movement), visual (derogatory posters, cartoons), sexual favors. Report to supervisor, [TITLE] or President/Executive Director; supervisors must escalate to senior management/HR. Investigations are prompt, impartial, documented and tracked; interim measures (leave, transfer) possible; confidentiality to the fullest extent possible; no retaliation.",
+      "legal_notes": [
+        "iii: Cal. Gov. Code 12940(k) requires employers to take all reasonable steps to prevent discrimination and harassment; failure is a separate violation.",
+        "iv: Policy should state that complaints are investigated promptly and thoroughly and handled confidentially to the extent consistent with a proper investigation.",
+        "v: Employers must distribute the DFEH sexual harassment information sheet or an equivalent statement covering seven minimum elements.",
+        "vi: Employers with 50+ employees must train supervisors on harassment, discrimination, retaliation and abusive conduct."
+      ]
+    },
+    {
+      "id": "II.D",
+      "part": "II. General Employment Information",
+      "section": "D",
+      "title": "Accommodations",
+      "content": "Complies with federal and state disability law. Provides reasonable accommodations for known limitations of qualified individuals with disabilities (applicants and employees) unless undue hardship. Also accommodates victims of domestic violence, sexual assault or stalking, and religious beliefs and practices.",
+      "legal_notes": [
+        "vii: Cal. Lab. Code 230(f) requires accommodation for disclosed victims who request safety accommodations. Title VII and FEHA require religious accommodation absent undue hardship."
+      ]
+    },
+    {
+      "id": "II.E",
+      "part": "II. General Employment Information",
+      "section": "E",
+      "title": "Open Door Policy",
+      "content": "Separate from formal harassment/discrimination reporting. Employees are encouraged to raise job-related concerns with their supervisor or any management representative, as soon as possible, and keep pursuing until resolved. Organization will explain results and try to keep concerns confidential, though some disclosure may be necessary.",
+      "legal_notes": []
+    },
+    {
+      "id": "III.A",
+      "part": "III. Employment Documentation and Status",
+      "section": "A",
+      "title": "Employment Documentation",
+      "content": "Organization relies on accuracy of application and personnel information. Misrepresentation, falsification or omission may lead to exclusion from consideration or termination.",
+      "legal_notes": []
+    },
+    {
+      "id": "III.B",
+      "part": "III. Employment Documentation and Status",
+      "section": "B",
+      "title": "Personnel Data Changes",
+      "content": "Employees must promptly notify [TITLE] of changes to address, phone, dependents, emergency contacts, education and similar data.",
+      "legal_notes": []
+    },
+    {
+      "id": "III.C",
+      "part": "III. Employment Documentation and Status",
+      "section": "C",
+      "title": "Access to Personnel Files",
+      "content": "Files are organization property and may not be removed without written authorization. Current and former employees may access their files at reasonable times, no later than 30 days after request. Employees may not remove portions or add comments. No access to references, criminal investigations or similarly confidential information.",
+      "legal_notes": []
+    },
+    {
+      "id": "III.D",
+      "part": "III. Employment Documentation and Status",
+      "section": "D",
+      "title": "Employee Reference Requests",
+      "content": "All reference requests go to [TITLE]; no one else may release references. Only dates of employment and last title are disclosed. With written authorization, last salary or wage may also be disclosed.",
+      "legal_notes": []
+    },
+    {
+      "id": "IV.A",
+      "part": "IV. Payroll, Scheduling and Overtime Practices",
+      "section": "A",
+      "title": "Timekeeping",
+      "content": "Time sheets are the record of hours worked and must be accurate. No working off the clock. Errors must be reported to the supervisor immediately. Rules: sign only your own time sheet; supervisor authorizes overtime in writing beforehand; supervisor initials any alterations; sign daily time sheets each day if correct; tampering or falsifying records may lead to discipline up to termination.",
+      "legal_notes": []
+    },
+    {
+      "id": "IV.B",
+      "part": "IV. Payroll, Scheduling and Overtime Practices",
+      "section": "B",
+      "title": "Pay Corrections",
+      "content": "Organization takes reasonable steps to pay all reported work promptly on payday. Pay errors should be brought to [TITLE] promptly for correction.",
+      "legal_notes": []
+    },
+    {
+      "id": "IV.C",
+      "part": "IV. Payroll, Scheduling and Overtime Practices",
+      "section": "C",
+      "title": "Meals and Rest Breaks",
+      "content": "Non-exempt employees working more than 5 hours get an unpaid 30-minute uninterrupted meal period starting by the end of the 5th hour; more than 10 hours gets a second meal period. Paid 10-minute off-duty rest breaks for each 4 hours worked or major fraction. Breaks should be mid-period and may not be combined with meals or skipped to leave early.",
+      "legal_notes": []
+    },
+    {
+      "id": "IV.D",
+      "part": "IV. Payroll, Scheduling and Overtime Practices",
+      "section": "D",
+      "title": "Overtime",
+      "content": "Non-exempt employees need prior written supervisor approval for overtime. Pay: 1.5x regular rate for hours over 40 in a workweek; 1.5x for hours over 8 up to 12 in a workday and the first 8 hours on the seventh consecutive workday; 2x for hours over 12 in a workday and over 8 on the seventh consecutive day.",
+      "legal_notes": []
+    },
+    {
+      "id": "V.A",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "A",
+      "title": "Employee Benefits",
+      "content": "Eligible employees receive a range of benefits; Social Security, workers compensation, state disability and unemployment insurance cover all employees as required by law. Workers compensation is fully employer-paid and covers medical treatment and partial lost earnings.",
+      "legal_notes": []
+    },
+    {
+      "id": "V.B",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "B",
+      "title": "Vacation Benefits",
+      "content": "Eligibility: regular full-time employees. Accrual: years 1-5 = 3.077 hours biweekly (max 10 days/year); years 6-10 = 4.62 hours biweekly (max 15 days); year 11+ = 6.15 hours biweekly (max 20 days). 90-calendar-day waiting period before use. Unused vacation carries forward; accrued balance capped at twice the annual allotment. Vacation pay is base rate excluding overtime; no pay in lieu except at termination, when all accrued unused vacation is paid.",
+      "legal_notes": [
+        "viii: California does not require paid vacation, but if offered it is deferred compensation that vests and cannot be forfeited (Lab. Code 227.3).",
+        "xiii: Under Lab. Code 227.3, vested unused vacation must be paid at the final wage rate on termination."
+      ]
+    },
+    {
+      "id": "V.C",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "C",
+      "title": "Holidays",
+      "content": "Paid holidays: New Year's Day, Martin Luther King Jr. Day, Presidents' Day, Memorial Day, Independence Day, Labor Day, Veterans' Day, Thanksgiving, day after Thanksgiving, Christmas Eve, Christmas Day. Non-exempt employees who work a holiday get 1.5x straight time.",
+      "legal_notes": [
+        "xiv: No law requires observing holidays, but employers must reasonably accommodate religious practices.",
+        "xv: Holiday premium pay is not legally required in California."
+      ]
+    },
+    {
+      "id": "V.D",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "D",
+      "title": "Sick Leave Benefits",
+      "content": "Eligibility: all employees, including part-time and temporary, accrue from start of employment. Accrual: 1 hour per 30 hours worked; cap of 48 hours or 6 workdays. Usage: greater of 24 hours or 3 workdays per leave year for diagnosis, care, preventive care or treatment of the employee or a family member. Minimum increment 2 hours. Retaliation or discrimination for using sick leave is prohibited.",
+      "legal_notes": [
+        "xvi: Local ordinances (e.g., City of Los Angeles) may be more generous; the employer must give the most generous benefit.",
+        "xvii: Healthy Workplaces, Healthy Families Act of 2014 effective July 1, 2015 (Lab. Code 245 et seq.)."
+      ]
+    },
+    {
+      "id": "V.E",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "E",
+      "title": "Workers Compensation Insurance",
+      "content": "Free to employees; covers injury or illness sustained in the course of employment. Report all work injuries to the supervisor immediately, however minor.",
+      "legal_notes": []
+    },
+    {
+      "id": "V.F",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "F",
+      "title": "Health Insurance",
+      "content": "Employees regularly working at least 30 hours per week and their dependents are eligible for medical, dental and vision plans. Contact [TITLE] for details.",
+      "legal_notes": []
+    },
+    {
+      "id": "V.G",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "G",
+      "title": "Jury and Witness Duty",
+      "content": "Time off for jury service with reasonable notice. Regular full-time employees with 90+ calendar days get up to 10 paid working days per year for jury duty at base pay. Longer jury leave and witness leave are unpaid, though vacation may be substituted.",
+      "legal_notes": [
+        "xxii: State law does not require pay for jury duty."
+      ]
+    },
+    {
+      "id": "V.H",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "H",
+      "title": "Family Care, Medical, and Military Family Leave",
+      "content": "Provides family care, medical and military family leave of up to 12 or 26 weeks per year under CFRA and the FMLA; pregnancy leave up to four months under FEHA; disability leave as accommodation under ADA/FEHA. Employee must have worked at least 12 months and 1,250 hours in the preceding 12 months. Leave is unpaid except where other paid leave is substituted.",
+      "legal_notes": []
+    },
+    {
+      "id": "V.I",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "I",
+      "title": "Pregnancy Leave",
+      "content": "Employees disabled by pregnancy, childbirth or related conditions may take pregnancy disability leave for the period of actual disability up to four months, in addition to any family care/medical leave; may be intermittent or reduced schedule. Reasonable accommodation, including temporary transfer to less strenuous or hazardous duties, available with medical certification.",
+      "legal_notes": []
+    },
+    {
+      "id": "V.K",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "K",
+      "title": "Military Leave",
+      "content": "Unpaid military leave under USERRA for service in the U.S. uniformed services. Advance notice required unless military necessity, impossibility or unreasonableness. Returning employees are reinstated to former or equal-pay-and-status position.",
+      "legal_notes": []
+    },
+    {
+      "id": "V.L",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "L",
+      "title": "Bereavement Leave",
+      "content": "Up to 4 days paid for regular full-time employees; other employees may request up to 3 days unpaid. Immediate family: spouse, domestic partner, parent, child, sibling; spouse's parent, child or sibling; child's spouse; grandparents; grandchildren.",
+      "legal_notes": [
+        "xxx: California law does not require bereavement leave for private-sector employees."
+      ]
+    },
+    {
+      "id": "V.M",
+      "part": "V. Benefits and Leaves of Absence",
+      "section": "M",
+      "title": "Time Off To Vote",
+      "content": "Up to 2 hours paid time off to vote if work schedule prevents voting outside work hours. Request at least two working days before election day; time scheduled at the start or end of shift.",
+      "legal_notes": [
+        "xxxi: Required by Cal. Elec. Code 14000."
+      ]
+    },
+    {
+      "id": "VI.A",
+      "part": "VI. Standards of Conduct",
+      "section": "A",
+      "title": "Workplace Violence Prevention",
+      "content": "Courtesy and respect required; no fighting or horseplay; firearms, weapons and dangerous devices or substances prohibited without authorization. Threatening, intimidating or coercive conduct is not tolerated, including off-duty periods. Report all threats to supervisor immediately.",
+      "legal_notes": []
+    },
+    {
+      "id": "VI.B",
+      "part": "VI. Standards of Conduct",
+      "section": "B",
+      "title": "Drug and Alcohol Use",
+      "content": "Drug-free workplace. No use, possession, distribution, sale or being under the influence of alcohol or illegal drugs on premises or while conducting business. Legal prescription drugs permitted if they do not impair safe performance; employees must notify supervisor of impairing prescriptions. Violations may lead to termination.",
+      "legal_notes": [
+        "xxxii: Federal Drug-Free Workplace Act requires a published statement of prohibited conduct and sanctions.",
+        "xxxiii: Cal. Lab. Code 1025 requires employers with 25+ employees to reasonably accommodate voluntary rehabilitation participation."
+      ]
+    },
+    {
+      "id": "VI.C",
+      "part": "VI. Standards of Conduct",
+      "section": "C",
+      "title": "Smoking",
+      "content": "Smoking prohibited throughout the workplace including outside grounds; applies to employees and visitors.",
+      "legal_notes": [
+        "xxxiv: California generally prohibits smoking in enclosed workplaces (Lab. Code 6404.5)."
+      ]
+    },
+    {
+      "id": "VI.D",
+      "part": "VI. Standards of Conduct",
+      "section": "D",
+      "title": "Attendance and Punctuality",
+      "content": "Employees must be reliable and punctual and notify supervisors as early as possible of absence or tardiness. Poor attendance or excessive tardiness may lead to discipline up to termination.",
+      "legal_notes": []
+    },
+    {
+      "id": "VI.E",
+      "part": "VI. Standards of Conduct",
+      "section": "E",
+      "title": "Dress and Grooming Standards",
+      "content": "Clean, neat, professional appearance appropriate to the position. Employees needing medical or religious accommodation should contact [TITLE].",
+      "legal_notes": []
+    },
+    {
+      "id": "VI.F",
+      "part": "VI. Standards of Conduct",
+      "section": "F",
+      "title": "Non-Disclosure",
+      "content": "Protects confidential information not generally known that the organization has taken reasonable steps to protect, including compensation data, financial information, pending projects and proposals. Improper use or disclosure leads to discipline up to termination.",
+      "legal_notes": [
+        "xxxvii: Be careful disciplining disclosure of compensation data; it may be protected concerted activity under the NLRA."
+      ]
+    },
+    {
+      "id": "VI.H",
+      "part": "VI. Standards of Conduct",
+      "section": "H",
+      "title": "Internet, E-mail, and Electronic Communications",
+      "content": "All electronic communications systems are covered. No harassment, discrimination, commercial use not for the organization's benefit, or violation of copyright. Organization may monitor and access all systems and devices. Violations lead to discipline up to termination.",
+      "legal_notes": []
+    },
+    {
+      "id": "VI.J",
+      "part": "VI. Standards of Conduct",
+      "section": "J",
+      "title": "Ethics and Conduct",
+      "content": "Fair dealing and ethical conduct are required; directors, officers and employees must comply with all applicable laws and avoid illegal, dishonest or unethical conduct.",
+      "legal_notes": []
+    },
+    {
+      "id": "VI.K",
+      "part": "VI. Standards of Conduct",
+      "section": "K",
+      "title": "Safety",
+      "content": "Healthy and safe workplace. Employees raise safety ideas and concerns without reprisal, obey safety rules, and must immediately report unsafe conditions and any injury to [TITLE]. Violations may lead to discipline up to termination.",
+      "legal_notes": []
+    },
+    {
+      "id": "ACK",
+      "part": "Acknowledgment Form",
+      "section": "Form",
+      "title": "Acknowledgment Form",
+      "content": "Employee acknowledges reading the handbook, voluntary employment, at-will status terminable by either party with or without cause or notice, that handbook policies may change except at-will status, and that the handbook is not a contract.",
+      "legal_notes": []
+    }
+  ]
+}

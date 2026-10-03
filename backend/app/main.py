@@ -27,11 +27,21 @@ app = FastAPI(
 )
 
 # ── CORS Middleware ───────────────────────────────────────────────────────────
+origins = [
+    "https://policy-iq-enterprise-policy-intelli.vercel.app",
+    "https://policy-iq-enterprise-policy-intelli-three.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:3000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_origin_regex=r".*",
-    allow_credentials=False,
+    allow_origins=origins,
+    allow_origin_regex=r"https://policy-iq-enterprise-policy-intelli.*\.vercel\.app",
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -41,6 +51,14 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(chat.router)
 app.include_router(documents.router)
+
+
+# ── /chat and /ask Aliases ────────────────────────────────────────────────────
+@app.post("/chat", response_model=chat.ChatResponse, tags=["Chat"])
+@app.post("/ask", response_model=chat.ChatResponse, tags=["Chat"])
+async def chat_alias(request: chat.ChatRequest) -> chat.ChatResponse:
+    """Convenience alias for /api/chat accepting both 'question' and 'message'."""
+    return await chat.send_message(request)
 
 
 # ── Root Redirect ─────────────────────────────────────────────────────────────

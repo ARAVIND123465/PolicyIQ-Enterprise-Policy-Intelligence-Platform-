@@ -32,12 +32,32 @@ class Settings(BaseSettings):
     GOOGLE_API_KEY: str = ""
 
     # ── Data Paths (absolute) ─────────────────────────────────────────────────
-    DOCUMENTS_DIR: str = str(_REPO_ROOT / "data" / "documents")
-    PROCESSED_DIR: str = str(_REPO_ROOT / "data" / "processed")
-    VECTORSTORE_DIR: str = str(_REPO_ROOT / "data" / "vectorstore")
+    DOCUMENTS_DIR: str = str(
+        (_BACKEND_DIR / "data" / "documents") if (_BACKEND_DIR / "data" / "documents").exists()
+        else (_REPO_ROOT / "data" / "documents")
+    )
+    PROCESSED_DIR: str = str(
+        (_BACKEND_DIR / "data" / "processed") if (_BACKEND_DIR / "data" / "processed").exists()
+        else (_REPO_ROOT / "data" / "processed")
+    )
+    VECTORSTORE_DIR: str = str(
+        Path("/tmp/vectorstore") if os.environ.get("VERCEL")
+        else ((_BACKEND_DIR / "data" / "vectorstore") if (_BACKEND_DIR / "data").exists() else (_REPO_ROOT / "data" / "vectorstore"))
+    )
 
     # ── Handbook JSON (default source document) ───────────────────────────────
-    HANDBOOK_JSON: str = str(_REPO_ROOT / "data" / "documents" / "employee_handbook.json")
+    HANDBOOK_JSON: str = next(
+        (
+            str(p) for p in [
+                _BACKEND_DIR / "app" / "data" / "employee_handbook.json",
+                _BACKEND_DIR / "data" / "documents" / "employee_handbook.json",
+                _REPO_ROOT / "data" / "documents" / "employee_handbook.json",
+                Path("/var/task/app/data/employee_handbook.json"),
+                Path("/var/task/data/documents/employee_handbook.json"),
+            ] if p.exists()
+        ),
+        str(_BACKEND_DIR / "app" / "data" / "employee_handbook.json"),
+    )
 
     # ── RAG Tuning ───────────────────────────────────────────────────────────
     CHUNK_SIZE: int = 500

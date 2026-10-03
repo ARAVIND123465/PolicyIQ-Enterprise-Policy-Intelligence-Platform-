@@ -28,9 +28,21 @@ def _get_vectorstore():
     if _vectorstore is None:
         json_path = settings.HANDBOOK_JSON
         if not os.path.exists(json_path):
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            candidates = [
+                os.path.join(base_dir, "data", "employee_handbook.json"),
+                os.path.join(os.path.dirname(base_dir), "data", "documents", "employee_handbook.json"),
+                "/var/task/app/data/employee_handbook.json",
+                "/var/task/data/documents/employee_handbook.json",
+            ]
+            for cand in candidates:
+                if os.path.exists(cand):
+                    json_path = cand
+                    break
+        if not os.path.exists(json_path):
             raise FileNotFoundError(
                 f"Handbook JSON not found at: {json_path}\n"
-                "Please place employee_handbook.json in data/documents/"
+                "Please place employee_handbook.json in backend/app/data/ or backend/data/documents/"
             )
         _vectorstore = build_rag(json_path)
     return _vectorstore
