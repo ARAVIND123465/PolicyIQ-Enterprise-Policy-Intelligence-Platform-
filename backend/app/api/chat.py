@@ -6,7 +6,8 @@ NOTE: RAG pipeline not yet implemented.
 Replace the placeholder logic inside ChatService with your implementation.
 """
 
-from fastapi import APIRouter, HTTPException
+from typing import Optional
+from fastapi import APIRouter, HTTPException, Header
 from app.schemas.chat import ChatRequest, ChatResponse
 from app.services.chat_service import ChatService
 
@@ -15,12 +16,17 @@ chat_service = ChatService()
 
 
 @router.post("", response_model=ChatResponse)
-async def send_message(request: ChatRequest) -> ChatResponse:
+async def send_message(
+    request: ChatRequest,
+    x_user_role: Optional[str] = Header(None, alias="X-User-Role"),
+) -> ChatResponse:
     """
     Accept a user question and return an AI-generated answer with sources.
     The RAG pipeline is invoked inside ChatService.
     """
     try:
+        if x_user_role and (not request.role or request.role == "employee"):
+            request.role = x_user_role
         response = await chat_service.handle_message(request)
         return response
     except Exception as exc:

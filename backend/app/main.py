@@ -5,7 +5,8 @@ Starts the PolicyAI backend server with CORS middleware and all API routers.
 Run with:  uvicorn app.main:app --reload
 """
 
-from fastapi import FastAPI
+from typing import Optional
+from fastapi import FastAPI, Header
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
@@ -70,9 +71,12 @@ app.include_router(employee.router)
 # ── /chat and /ask Aliases ────────────────────────────────────────────────────
 @app.post("/chat", response_model=chat.ChatResponse, tags=["Chat"])
 @app.post("/ask", response_model=chat.ChatResponse, tags=["Chat"])
-async def chat_alias(request: chat.ChatRequest) -> chat.ChatResponse:
+async def chat_alias(
+    request: chat.ChatRequest,
+    x_user_role: Optional[str] = Header(None, alias="X-User-Role"),
+) -> chat.ChatResponse:
     """Convenience alias for /api/chat accepting both 'question' and 'message'."""
-    return await chat.send_message(request)
+    return await chat.send_message(request, x_user_role=x_user_role)
 
 
 # ── Root Redirect ─────────────────────────────────────────────────────────────
