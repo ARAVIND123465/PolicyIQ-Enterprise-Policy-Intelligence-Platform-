@@ -1,21 +1,17 @@
 {
-  "version": 2,
-  "builds": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
     {
-      "src": "app/main.py",
-      "use": "@vercel/python",
-      "config": {
-        "includeFiles": [
-          "data/**",
-          "app/data/**"
-        ]
-      }
+      "source": "/(.*)",
+      "destination": "/api/index.py"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "app/main.py"
+  "functions": {
+    "api/index.py": {
+      "includeFiles": [
+        "data/**",
+        "app/data/**"
+      ]
     }
-  ]
+  }
 }
