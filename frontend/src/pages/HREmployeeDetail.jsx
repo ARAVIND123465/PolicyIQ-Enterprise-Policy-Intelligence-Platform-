@@ -7,7 +7,7 @@ import {
 } from 'lucide-react'
 import {
   getHREmployee, updateHREmployee, deleteHREmployee,
-  uploadEmployeePhoto, removeEmployeePhoto
+  uploadEmployeePhoto, removeEmployeePhoto, getEmployeePhotoUrl
 } from '../services/api'
 
 export default function HREmployeeDetail() {
@@ -223,7 +223,7 @@ export default function HREmployeeDetail() {
           <div className="relative group">
             <img
               key={photoKey}
-              src={`/api/employees/${employee.employee_id}/photo?t=${photoKey}`}
+              src={`${getEmployeePhotoUrl(employee)}?t=${photoKey}`}
               alt={employee.full_name}
               className="w-24 h-24 md:w-28 md:h-28 rounded-2xl object-cover border-2 border-slate-200 shadow-sm"
               onError={(e) => {

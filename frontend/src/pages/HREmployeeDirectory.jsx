@@ -4,7 +4,7 @@ import {
   Search, Filter, Plus, ChevronLeft, ChevronRight,
   User, Mail, Building, Users, Calendar, ArrowUpDown, X, AlertCircle
 } from 'lucide-react'
-import { getHREmployees, getHRFilterOptions } from '../services/api'
+import { getHREmployees, getHRFilterOptions, getEmployeePhotoUrl } from '../services/api'
 import AddEmployeeModal from '../components/hr/AddEmployeeModal'
 
 export default function HREmployeeDirectory() {
@@ -252,7 +252,7 @@ export default function HREmployeeDirectory() {
                 <div className="flex items-start justify-between mb-3.5">
                   <div className="relative">
                     <img
-                      src={emp.photo_url || `/api/employees/${emp.employee_id}/photo`}
+                      src={getEmployeePhotoUrl(emp)}
                       alt={emp.full_name}
                       className="w-14 h-14 rounded-2xl object-cover border-2 border-slate-100 shadow-xs group-hover:scale-105 transition-transform"
                       onError={(e) => {

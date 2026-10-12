@@ -261,10 +261,22 @@ class EmployeeService:
     def get_photo_path(self, db: Session, employee_id: str) -> Optional[str]:
         """Get the filesystem path for an employee's photo."""
         emp = db.query(Employee).filter(Employee.employee_id == employee_id).first()
-        if not emp or not emp.photo_path:
+        if not emp:
             return None
-        if os.path.exists(emp.photo_path):
+        if emp.photo_path and os.path.exists(emp.photo_path):
             return emp.photo_path
+
+        # Fallback directory check: static/photos, data/uploads/photos, UPLOAD_DIR
+        search_dirs = [
+            _BACKEND_DIR / "app" / "static" / "photos",
+            _BACKEND_DIR / "data" / "uploads" / "photos",
+            UPLOAD_DIR,
+        ]
+        for sdir in search_dirs:
+            if sdir.exists():
+                for f in sdir.glob(f"{employee_id}*"):
+                    if f.is_file():
+                        return str(f)
         return None
 
     def remove_photo(self, db: Session, employee_id: str) -> bool:
@@ -354,42 +366,50 @@ class EmployeeService:
             return
 
         sample_employees = [
-            Employee(employee_id="EMP-1001", full_name="Arjun Kumar", email="arjun.kumar@company.com",
-                     role="AI Software Engineer", department="Engineering", team="AI & Automation",
-                     joining_date=datetime(2023, 3, 15).date(), status="Active"),
-            Employee(employee_id="EMP-1002", full_name="Priya Sharma", email="priya.sharma@company.com",
-                     role="Senior Data Scientist", department="Engineering", team="Data Science",
-                     joining_date=datetime(2022, 8, 1).date(), status="Active"),
-            Employee(employee_id="EMP-1003", full_name="Rahul Menon", email="rahul.menon@company.com",
-                     role="Product Manager", department="Product", team="Core Platform",
-                     joining_date=datetime(2023, 1, 10).date(), status="Active"),
-            Employee(employee_id="EMP-1004", full_name="Sneha Patel", email="sneha.patel@company.com",
-                     role="UX Designer", department="Design", team="Product Design",
-                     joining_date=datetime(2023, 6, 20).date(), status="Active"),
-            Employee(employee_id="EMP-1005", full_name="Vikram Singh", email="vikram.singh@company.com",
-                     role="DevOps Engineer", department="Engineering", team="Infrastructure",
-                     joining_date=datetime(2022, 11, 5).date(), status="Active"),
-            Employee(employee_id="EMP-1006", full_name="Ananya Reddy", email="ananya.reddy@company.com",
-                     role="HR Business Partner", department="Human Resources", team="HR Operations",
-                     joining_date=datetime(2022, 4, 1).date(), status="Active"),
-            Employee(employee_id="EMP-1007", full_name="Karthik Nair", email="karthik.nair@company.com",
-                     role="Backend Developer", department="Engineering", team="AI & Automation",
-                     joining_date=datetime(2023, 9, 12).date(), status="Active"),
-            Employee(employee_id="EMP-1008", full_name="Meera Iyer", email="meera.iyer@company.com",
-                     role="QA Lead", department="Engineering", team="Quality Assurance",
-                     joining_date=datetime(2022, 7, 15).date(), status="On Leave"),
-            Employee(employee_id="EMP-1009", full_name="Aditya Joshi", email="aditya.joshi@company.com",
-                     role="Marketing Manager", department="Marketing", team="Digital Marketing",
-                     joining_date=datetime(2023, 2, 28).date(), status="Active"),
-            Employee(employee_id="EMP-1010", full_name="Divya Krishnan", email="divya.krishnan@company.com",
-                     role="Finance Analyst", department="Finance", team="Financial Planning",
-                     joining_date=datetime(2023, 5, 1).date(), status="Active"),
-            Employee(employee_id="EMP-1011", full_name="Rohan Gupta", email="rohan.gupta@company.com",
-                     role="Frontend Developer", department="Engineering", team="Web Platform",
-                     joining_date=datetime(2024, 1, 8).date(), status="Active"),
-            Employee(employee_id="EMP-1012", full_name="Lakshmi Venkatesh", email="lakshmi.v@company.com",
-                     role="Recruitment Specialist", department="Human Resources", team="Talent Acquisition",
-                     joining_date=datetime(2023, 4, 18).date(), status="Active"),
+            Employee(
+                employee_id="63744", full_name="Raghavan", email="ragahav221@gmail.com",
+                role="Forward Deployed Engineer (FDE)", department="Engineering", team="AI & Automation",
+                joining_date=datetime(2023, 1, 15).date(), status="Active",
+                photo_path=str(_BACKEND_DIR / "app" / "static" / "photos" / "63744_raghavan.jpg"),
+            ),
+            Employee(
+                employee_id="78342", full_name="Rohit rajeev", email="rohit265@gmail.com",
+                role="AI/ML Engineer", department="Engineering", team="AI & Automation",
+                joining_date=datetime(2023, 2, 1).date(), status="Active",
+                photo_path=str(_BACKEND_DIR / "app" / "static" / "photos" / "78342_rohit_rajeev.jpg"),
+            ),
+            Employee(
+                employee_id="98763", full_name="Shri hari", email="shri89@gmail.com",
+                role="DevOps Engineer", department="Engineering", team="AI & Automation",
+                joining_date=datetime(2023, 3, 10).date(), status="Active",
+                photo_path=str(_BACKEND_DIR / "app" / "static" / "photos" / "98763_shri_hari.jpg"),
+            ),
+            Employee(
+                employee_id="98543", full_name="Abinesh", email="abinesh342@gmail.com",
+                role="apprenticeship", department="Engineering", team="AI & Automation",
+                joining_date=datetime(2023, 4, 1).date(), status="Active",
+                photo_path=str(_BACKEND_DIR / "app" / "static" / "photos" / "98543_abinesh.jpg"),
+            ),
+            Employee(
+                employee_id="HR-1001", full_name="Ananya Reddy", email="ananya.reddy@company.com",
+                role="HR Operations Lead", department="Human Resources", team="HR Operations",
+                joining_date=datetime(2022, 4, 1).date(), status="Active",
+            ),
+            Employee(
+                employee_id="EMP-1002", full_name="Priya Sharma", email="priya.sharma@company.com",
+                role="Senior Data Scientist", department="Engineering", team="Data Science",
+                joining_date=datetime(2022, 8, 1).date(), status="Active",
+            ),
+            Employee(
+                employee_id="EMP-1003", full_name="Rahul Menon", email="rahul.menon@company.com",
+                role="Product Manager", department="Product", team="Core Platform",
+                joining_date=datetime(2023, 1, 10).date(), status="Active",
+            ),
+            Employee(
+                employee_id="EMP-1004", full_name="Sneha Patel", email="sneha.patel@company.com",
+                role="UX Designer", department="Design", team="Product Design",
+                joining_date=datetime(2023, 6, 20).date(), status="Active",
+            ),
         ]
 
         # Set manager relationships

@@ -220,4 +220,12 @@ export async function getHealth() {
   return res.data
 }
 
+export function getEmployeePhotoUrl(emp) {
+  if (!emp) return ''
+  const base = api.defaults.baseURL || getBaseURL()
+  const rawUrl = emp.photo_url || `/api/employees/${emp.employee_id}/photo`
+  if (rawUrl.startsWith('http')) return rawUrl
+  return `${base.replace(/\/+$/, '')}/${rawUrl.replace(/^\/+/, '')}`
+}
+
 export default api
