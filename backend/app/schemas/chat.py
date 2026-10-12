@@ -31,6 +31,11 @@ class ChatRequest(BaseModel):
             if not msg or not str(msg).strip():
                 raise ValueError("Field 'message' or 'question' is required.")
             data["message"] = str(msg).strip()
+            # Also accept camelCase from frontend if sent
+            if not data.get("conversation_id") and data.get("conversationId"):
+                data["conversation_id"] = data["conversationId"]
+            if not data.get("top_k") and data.get("topK"):
+                data["top_k"] = data["topK"]
         return data
 
 
