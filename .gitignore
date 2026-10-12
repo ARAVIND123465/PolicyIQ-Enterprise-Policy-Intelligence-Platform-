@@ -16,8 +16,10 @@ __pycache__/
 *.pyd
 .Python
 venv/
+venv_arm64/
 env/
 .venv/
+*.db
 *.egg-info/
 dist/
 build/

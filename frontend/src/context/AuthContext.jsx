@@ -20,19 +20,35 @@ export function AuthProvider({ children }) {
     else       localStorage.removeItem('policyai_user')
   }, [user])
 
-  const login = (username, password, role) => {
-    // Accept any username and password — only role matters
-    if (!username.trim()) return { ok: false, error: 'Please enter a username.' }
-    if (!password.trim()) return { ok: false, error: 'Please enter a password.' }
+  const login = (identifier, password, role) => {
+    // Accept any email/username and any password — no JWT required
+    if (!identifier || !identifier.trim()) return { ok: false, error: 'Please enter your email or username.' }
+    if (!password || !password.trim()) return { ok: false, error: 'Please enter your password.' }
 
-    const defaults = ROLE_DEFAULTS[role]
-    setUser({
-      username: username.trim(),
-      name: username.trim(),
-      email: `${username.trim().toLowerCase().replace(/\s+/g, '.')}@company.com`,
+    const trimmed = identifier.trim()
+    const targetRole = role || 'employee'
+    const defaults = ROLE_DEFAULTS[targetRole] || ROLE_DEFAULTS.employee
+
+    let email = ''
+    let displayName = ''
+
+    if (trimmed.includes('@')) {
+      email = trimmed.toLowerCase()
+      const localPart = trimmed.split('@')[0]
+      displayName = localPart.replace(/[._]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+    } else {
+      displayName = trimmed
+      email = `${trimmed.toLowerCase().replace(/\s+/g, '.')}@company.com`
+    }
+
+    const userData = {
+      username: trimmed,
+      name: displayName,
+      email: email,
       role: defaults.role,
-    })
-    return { ok: true }
+    }
+    setUser(userData)
+    return { ok: true, user: userData }
   }
 
   const logout = () => setUser(null)

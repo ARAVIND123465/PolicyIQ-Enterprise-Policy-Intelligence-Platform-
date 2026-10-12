@@ -5,15 +5,20 @@
 import axios from 'axios'
 
 const getBaseURL = () => {
+  const isLocalHost =
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+
   const envUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL
-  if (envUrl) {
+  if (envUrl && (!envUrl.includes('vercel.app') || !isLocalHost)) {
     return envUrl.replace(/\/+$/, '')
   }
-  // Production fallback: do not call localhost:8000 when deployed on an HTTPS domain
-  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-    return 'https://policy-iq-enterprise-policy-intelli-three.vercel.app'
+
+  if (isLocalHost) {
+    return 'http://127.0.0.1:8000'
   }
-  return 'http://127.0.0.1:8000'
+
+  return 'https://policy-iq-enterprise-policy-intelli-three.vercel.app'
 }
 
 const api = axios.create({
@@ -50,12 +55,37 @@ api.interceptors.response.use(
   },
 )
 
+// Attach user credentials and role from localStorage to every request
+api.interceptors.request.use((config) => {
+  try {
+    const userStr = localStorage.getItem('policyai_user')
+    if (userStr) {
+      const user = JSON.parse(userStr)
+      if (user?.role) config.headers['X-User-Role'] = user.role
+      if (user?.email) config.headers['X-User-Email'] = user.email
+      if (user?.name) config.headers['X-User-Name'] = user.name
+    }
+  } catch {}
+  return config
+})
+
 // ── Chat ──────────────────────────────────────────────────────────────────
-export async function sendChatMessage({ message, conversationId = null, topK = 5 }) {
+export async function sendChatMessage({ message, conversationId = null, topK = 5, role = null }) {
+  let userRole = role
+  if (!userRole) {
+    try {
+      const u = JSON.parse(localStorage.getItem('policyai_user') || '{}')
+      userRole = u.role || 'employee'
+    } catch {
+      userRole = 'employee'
+    }
+  }
+
   const payload = {
     message,
     conversation_id: conversationId,
     top_k: topK,
+    role: userRole,
   }
   try {
     const res = await api.post('/chat', payload)
@@ -109,6 +139,77 @@ export async function getDocuments() {
 
 export async function deleteDocument(id) {
   const res = await api.delete(`/api/documents/${id}`)
+  return res.data
+}
+
+// ── HR Portal Endpoints ───────────────────────────────────────────────────
+export async function getHRDashboardStats() {
+  const res = await api.get('/api/hr/dashboard/stats')
+  return res.data
+}
+
+export async function getHREmployees(params = {}) {
+  const res = await api.get('/api/hr/employees', { params })
+  return res.data
+}
+
+export async function getHRFilterOptions() {
+  const res = await api.get('/api/hr/employees/filters')
+  return res.data
+}
+
+export async function getHREmployee(employeeId) {
+  const res = await api.get(`/api/hr/employees/${employeeId}`)
+  return res.data
+}
+
+export async function createHREmployee(data) {
+  const res = await api.post('/api/hr/employees', data)
+  return res.data
+}
+
+export async function updateHREmployee(employeeId, data) {
+  const res = await api.patch(`/api/hr/employees/${employeeId}`, data)
+  return res.data
+}
+
+export async function deleteHREmployee(employeeId) {
+  const res = await api.delete(`/api/hr/employees/${employeeId}`)
+  return res.data
+}
+
+export async function uploadEmployeePhoto(employeeId, file) {
+  const form = new FormData()
+  form.append('file', file)
+  const res = await api.post(`/api/hr/employees/${employeeId}/photo`, form, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })
+  return res.data
+}
+
+export async function removeEmployeePhoto(employeeId) {
+  const res = await api.delete(`/api/hr/employees/${employeeId}/photo`)
+  return res.data
+}
+
+// ── Employee Self-Service Endpoints ───────────────────────────────────────
+export async function getMyProfile() {
+  const res = await api.get('/api/employees/me')
+  return res.data
+}
+
+export async function updateMyProfile(data) {
+  const res = await api.patch('/api/employees/me', data)
+  return res.data
+}
+
+export async function getPublicEmployees(params = {}) {
+  const res = await api.get('/api/employees', { params })
+  return res.data
+}
+
+export async function getPublicEmployee(employeeId) {
+  const res = await api.get(`/api/employees/${employeeId}`)
   return res.data
 }
 

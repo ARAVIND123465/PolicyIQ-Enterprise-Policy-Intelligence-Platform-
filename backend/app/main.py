@@ -9,7 +9,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
-from app.api import health, chat, documents
+from app.api import health, chat, documents, hr, employee
+from app.database import init_db, SessionLocal
+from app.services.employee_service import EmployeeService
 
 settings = get_settings()
 
@@ -18,13 +20,23 @@ app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
     description=(
-        "PolicyAI — Enterprise Company Policy RAG Chatbot. "
+        "PolicyAI — Enterprise Company Policy RAG Chatbot & Employee Intelligence Platform. "
         "Ask questions about your company's policies and receive "
-        "cited, AI-generated answers."
+        "cited, AI-generated answers, plus HR and Employee directory management."
     ),
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+# Initialize database schema and seed sample employees on startup
+@app.on_event("startup")
+def startup_event():
+    init_db()
+    db = SessionLocal()
+    try:
+        EmployeeService().seed_sample_employees(db)
+    finally:
+        db.close()
 
 # ── CORS Middleware ───────────────────────────────────────────────────────────
 origins = [
@@ -51,6 +63,8 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(chat.router)
 app.include_router(documents.router)
+app.include_router(hr.router)
+app.include_router(employee.router)
 
 
 # ── /chat and /ask Aliases ────────────────────────────────────────────────────

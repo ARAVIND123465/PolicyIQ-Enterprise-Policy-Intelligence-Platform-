@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { Circle, Plus, RotateCcw } from 'lucide-react'
 import ChatWindow from '../components/chat/ChatWindow'
 import ChatInput from '../components/chat/ChatInput'
@@ -8,13 +8,25 @@ import { useChat } from '../context/ChatContext'
 export default function Chat() {
   const { conversationId } = useParams()
   const navigate = useNavigate()
-  const { activeId, loadConversation, startNewConversation, messages } = useChat()
+  const location = useLocation()
+  const { activeId, loadConversation, startNewConversation, sendMessage, messages } = useChat()
+  const initialSentRef = useRef(false)
 
   useEffect(() => {
     if (conversationId && conversationId !== activeId) {
       loadConversation(conversationId)
     }
   }, [conversationId, activeId, loadConversation])
+
+  useEffect(() => {
+    const query = location.state?.initialQuery
+    if (query && !initialSentRef.current) {
+      initialSentRef.current = true
+      sendMessage(query)
+      // Clear state so reload doesn't re-send
+      navigate(location.pathname, { replace: true, state: {} })
+    }
+  }, [location.state, sendMessage, navigate, location.pathname])
 
   const handleReset = () => {
     startNewConversation()

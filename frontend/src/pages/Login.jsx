@@ -192,7 +192,7 @@ export default function LoginPage() {
     const result = login(uname, pwd, targetRole)
     setLoading(false)
     if (result.ok) {
-      navigate(targetRole === 'hr' ? '/documents' : '/chat', { replace: true })
+      navigate(targetRole === 'hr' ? '/hr/dashboard' : '/employee/dashboard', { replace: true })
     } else {
       setError(result.error)
     }

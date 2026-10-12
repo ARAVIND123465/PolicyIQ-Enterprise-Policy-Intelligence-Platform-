@@ -14,8 +14,8 @@ export default function ProtectedRoute({ children, role }) {
   }
 
   if (role && user.role !== role) {
-    // Wrong role → redirect to their home
-    return <Navigate to={user.role === 'hr' ? '/documents' : '/chat'} replace />
+    // Wrong role → redirect to their respective dashboard
+    return <Navigate to={user.role === 'hr' ? '/hr/dashboard' : '/employee/dashboard'} replace />
   }
 
   return children

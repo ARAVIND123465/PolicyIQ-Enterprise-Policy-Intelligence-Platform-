@@ -1,21 +1,28 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import {
   MessageSquare, Clock, FileText, ShieldCheck, Settings,
-  Plus, ChevronRight, LogOut, User, X
+  Plus, ChevronRight, LogOut, User, X, LayoutDashboard,
+  Users, BookOpen
 } from 'lucide-react'
 import { useChat } from '../../context/ChatContext'
 import { useAuth } from '../../context/AuthContext'
 
 const EMPLOYEE_NAV = [
-  { to: '/chat',     label: 'Chat',         icon: MessageSquare },
-  { to: '/history',  label: 'Chat History', icon: Clock         },
-  { to: '/settings', label: 'Settings',     icon: Settings      },
+  { to: '/employee/dashboard', label: 'Dashboard',        icon: LayoutDashboard },
+  { to: '/chat',               label: 'Policy Assistant', icon: MessageSquare   },
+  { to: '/employee/policies',  label: 'Company Policies', icon: BookOpen        },
+  { to: '/employee/profile',   label: 'My Profile',       icon: User            },
+  { to: '/history',            label: 'Chat History',     icon: Clock           },
+  { to: '/settings',           label: 'Settings',         icon: Settings        },
 ]
 
 const HR_NAV = [
-  { to: '/documents', label: 'Documents',   icon: FileText      },
-  { to: '/admin',     label: 'Admin',       icon: ShieldCheck   },
-  { to: '/settings',  label: 'Settings',    icon: Settings      },
+  { to: '/hr/dashboard', label: 'HR Dashboard',       icon: LayoutDashboard },
+  { to: '/hr/employees', label: 'Employee Directory', icon: Users           },
+  { to: '/chat',         label: 'HR AI Assistant',    icon: MessageSquare   },
+  { to: '/documents',    label: 'Policy Documents',   icon: FileText        },
+  { to: '/admin',        label: 'System Admin',       icon: ShieldCheck     },
+  { to: '/settings',     label: 'Settings',           icon: Settings        },
 ]
 
 export default function Sidebar({ isOpen = false, onClose }) {
@@ -72,22 +79,20 @@ export default function Sidebar({ isOpen = false, onClose }) {
         )}
       </div>
 
-      {/* New Chat Button — only for employees */}
-      {!isHR && (
-        <div className="px-4 py-3 border-b border-border">
-          <button
-            id="sidebar-new-chat"
-            type="button"
-            onClick={handleNew}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl
-                       bg-primary-600 hover:bg-primary-700 active:bg-primary-800
-                       text-white text-sm font-medium transition-colors duration-150 shadow-sm cursor-pointer"
-          >
-            <Plus className="w-4 h-4" />
-            <span>New Chat</span>
-          </button>
-        </div>
-      )}
+      {/* New Chat Button */}
+      <div className="px-4 py-3 border-b border-border">
+        <button
+          id="sidebar-new-chat"
+          type="button"
+          onClick={handleNew}
+          className={`w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl
+                     ${isHR ? 'bg-violet-600 hover:bg-violet-700' : 'bg-primary-600 hover:bg-primary-700'}
+                     text-white text-sm font-medium transition-colors duration-150 shadow-sm cursor-pointer`}
+        >
+          <Plus className="w-4 h-4" />
+          <span>New Chat</span>
+        </button>
+      </div>
 
       {/* Role badge */}
       <div className="px-4 pt-3.5 pb-1">

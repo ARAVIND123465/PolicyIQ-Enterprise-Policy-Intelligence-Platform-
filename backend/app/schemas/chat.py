@@ -20,6 +20,7 @@ class ChatRequest(BaseModel):
     message: Optional[str] = Field(None, max_length=4096, description="User question")
     question: Optional[str] = Field(None, max_length=4096, description="Alias for message")
     conversation_id: Optional[str] = Field(None, description="Conversation thread ID for history")
+    role: Optional[str] = Field("employee", description="Role of the caller: employee or hr")
     top_k: Optional[int] = Field(4, ge=1, le=20, description="Number of sources to retrieve")
 
     @model_validator(mode="before")
