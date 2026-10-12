@@ -33,12 +33,12 @@ class Settings(BaseSettings):
 
     # ── Data Paths (absolute) ─────────────────────────────────────────────────
     DOCUMENTS_DIR: str = str(
-        (_BACKEND_DIR / "data" / "documents") if (_BACKEND_DIR / "data" / "documents").exists()
-        else (_REPO_ROOT / "data" / "documents")
+        Path("/tmp/documents") if os.environ.get("VERCEL")
+        else ((_BACKEND_DIR / "data" / "documents") if (_BACKEND_DIR / "data" / "documents").exists() else (_REPO_ROOT / "data" / "documents"))
     )
     PROCESSED_DIR: str = str(
-        (_BACKEND_DIR / "data" / "processed") if (_BACKEND_DIR / "data" / "processed").exists()
-        else (_REPO_ROOT / "data" / "processed")
+        Path("/tmp/processed") if os.environ.get("VERCEL")
+        else ((_BACKEND_DIR / "data" / "processed") if (_BACKEND_DIR / "data" / "processed").exists() else (_REPO_ROOT / "data" / "processed"))
     )
     VECTORSTORE_DIR: str = str(
         Path("/tmp/vectorstore") if os.environ.get("VERCEL")

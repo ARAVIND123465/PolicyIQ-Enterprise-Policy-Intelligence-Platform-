@@ -5,17 +5,18 @@
 import axios from 'axios'
 
 const getBaseURL = () => {
-  const isLocalHost =
-    typeof window !== 'undefined' &&
-    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-
-  const envUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL
-  if (envUrl && (!envUrl.includes('vercel.app') || !isLocalHost)) {
-    return envUrl.replace(/\/+$/, '')
+  // If running locally in a browser on localhost / 127.0.0.1, prioritize local backend
+  if (typeof window !== 'undefined') {
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    if (isLocal) {
+      return import.meta.env.VITE_LOCAL_API_URL || 'http://127.0.0.1:8000'
+    }
   }
 
-  if (isLocalHost) {
-    return 'http://127.0.0.1:8000'
+  // In production (Vercel, custom domain)
+  const envUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL
+  if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
+    return envUrl.replace(/\/+$/, '')
   }
 
   return 'https://policy-iq-enterprise-policy-intelli-three.vercel.app'

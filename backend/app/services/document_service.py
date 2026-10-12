@@ -59,9 +59,13 @@ class DocumentService:
         document_id = str(uuid.uuid4())
         contents = await file.read()
 
-        # Ensure upload directory exists
+        # Ensure upload directory exists (falls back to /tmp/documents if read-only)
         upload_dir = os.path.abspath(settings.DOCUMENTS_DIR)
-        os.makedirs(upload_dir, exist_ok=True)
+        try:
+            os.makedirs(upload_dir, exist_ok=True)
+        except OSError:
+            upload_dir = "/tmp/documents"
+            os.makedirs(upload_dir, exist_ok=True)
 
         file_path = os.path.join(upload_dir, f"{document_id}_{file.filename}")
         with open(file_path, "wb") as f:
