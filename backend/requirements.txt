@@ -23,8 +23,7 @@ python-multipart==0.0.18
 # ── HTTP client ───────────────────────────────────────────────────────────────
 httpx==0.28.1
 
-# ── RAG — LangChain core ─────────────────────────────────────────────────────
-langchain
+# ── RAG — Modular LangChain ──────────────────────────────────────────────────
 langchain-core
 langchain-community
 langchain-text-splitters
