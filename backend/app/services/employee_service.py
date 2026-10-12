@@ -19,7 +19,7 @@ from app.schemas.employee import (
 )
 
 # Upload directory for employee photos (uses /tmp on serverless environments)
-_BACKEND_DIR = Path(__file__).resolve().parent.parent
+_BACKEND_DIR = Path(__file__).resolve().parent.parent.parent
 is_serverless = bool(
     os.environ.get("VERCEL") or 
     os.environ.get("AWS_LAMBDA_FUNCTION_NAME") or 
@@ -361,10 +361,6 @@ class EmployeeService:
         }
 
     def seed_sample_employees(self, db: Session):
-        """Seed sample employee data if the table is empty."""
-        if db.query(Employee).count() > 0:
-            return
-
         sample_employees = [
             Employee(
                 employee_id="63744", full_name="Raghavan", email="ragahav221@gmail.com",
@@ -412,24 +408,11 @@ class EmployeeService:
             ),
         ]
 
-        # Set manager relationships
+        # Insert missing core employees and sync photo paths
         for emp in sample_employees:
-            db.add(emp)
-        db.commit()
-
-        # Set Arjun Kumar (EMP-1001) as manager for some engineering folks
-        arjun = db.query(Employee).filter(Employee.employee_id == "EMP-1001").first()
-        if arjun:
-            for eid in ["EMP-1007", "EMP-1011"]:
-                sub = db.query(Employee).filter(Employee.employee_id == eid).first()
-                if sub:
-                    sub.manager_id = arjun.id
-
-        # Set Ananya Reddy (EMP-1006) as manager for HR folks
-        ananya = db.query(Employee).filter(Employee.employee_id == "EMP-1006").first()
-        if ananya:
-            lakshmi = db.query(Employee).filter(Employee.employee_id == "EMP-1012").first()
-            if lakshmi:
-                lakshmi.manager_id = ananya.id
-
+            existing = db.query(Employee).filter(Employee.employee_id == emp.employee_id).first()
+            if not existing:
+                db.add(emp)
+            elif emp.photo_path and not existing.photo_path:
+                existing.photo_path = emp.photo_path
         db.commit()
