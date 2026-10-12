@@ -62,7 +62,10 @@ def _answer_employee_data_query(message: str, role: str) -> Optional[tuple[str, 
     msg = message.lower()
     
     # Check keywords indicating HR employee/headcount queries
-    has_headcount = any(k in msg for k in ["how many employee", "how many active", "headcount", "employee count", "number of employee"])
+    has_headcount = (
+        any(k in msg for k in ["how many employee", "how many active", "headcount", "employee count", "number of employee", "total employee", "total employees", "how many total"])
+        or ("how many" in msg and "employee" in msg)
+    )
     has_teams = any(k in msg for k in ["which team", "teams have the most", "most employee", "team distribution"])
     has_dept = any(k in msg for k in ["in engineering", "in human resources", "in product", "in design", "in finance", "department"])
     has_members = any(k in msg for k in ["who belongs to", "which employee", "employees belong to", "members of"])

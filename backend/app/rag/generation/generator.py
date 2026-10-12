@@ -134,7 +134,13 @@ def generate_answer(question: str, documents: list, chat_history: list = None) -
                 timeout=25,
             )
             response = llm.invoke(prompt)
-            return response.content
+            if isinstance(response.content, list):
+                text_parts = [
+                    p if isinstance(p, str) else (p.get("text", "") if isinstance(p, dict) else str(p))
+                    for p in response.content
+                ]
+                return "".join(text_parts)
+            return str(response.content)
         except Exception as exc:
             last_error = exc
             logger.warning(f"Model {model_name} failed: {exc}. Trying next model...")

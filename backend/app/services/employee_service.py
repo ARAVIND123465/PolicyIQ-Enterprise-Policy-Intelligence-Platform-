@@ -18,9 +18,23 @@ from app.schemas.employee import (
     EmployeeListResponse, DashboardStats,
 )
 
-# Upload directory for employee photos
+# Upload directory for employee photos (uses /tmp on serverless environments)
 _BACKEND_DIR = Path(__file__).resolve().parent.parent
-UPLOAD_DIR = _BACKEND_DIR / "data" / "uploads" / "photos"
+is_serverless = bool(
+    os.environ.get("VERCEL") or 
+    os.environ.get("AWS_LAMBDA_FUNCTION_NAME") or 
+    os.environ.get("LAMBDA_TASK_ROOT")
+)
+
+if is_serverless:
+    UPLOAD_DIR = Path("/tmp/uploads/photos")
+else:
+    try:
+        UPLOAD_DIR = _BACKEND_DIR / "data" / "uploads" / "photos"
+        UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        UPLOAD_DIR = Path("/tmp/uploads/photos")
+
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 # Max photo file size: 2 MB

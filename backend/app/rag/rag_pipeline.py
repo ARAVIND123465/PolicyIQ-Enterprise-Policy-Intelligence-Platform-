@@ -106,7 +106,8 @@ def ask_rag(vectorstore, question: str, chat_history: list = None) -> dict:
         "promotion roadmap",
         "performance-driven",
     ]
-    should_omit_sources = any(phrase in answer.lower() for phrase in no_source_indicators)
+    answer_str = answer if isinstance(answer, str) else str(answer)
+    should_omit_sources = any(phrase in answer_str.lower() for phrase in no_source_indicators)
 
     if should_omit_sources:
         sources = []

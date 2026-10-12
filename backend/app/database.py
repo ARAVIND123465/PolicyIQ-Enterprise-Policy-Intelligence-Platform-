@@ -10,9 +10,21 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
 _BACKEND_DIR = Path(__file__).resolve().parent.parent  # backend/
 
-# Store database alongside other data files
-DB_PATH = _BACKEND_DIR / "data" / "policyai.db"
-DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+# Use /tmp for writable SQLite database in serverless environments (e.g. Vercel, AWS Lambda)
+is_serverless = bool(
+    os.environ.get("VERCEL") or 
+    os.environ.get("AWS_LAMBDA_FUNCTION_NAME") or 
+    os.environ.get("LAMBDA_TASK_ROOT")
+)
+
+if is_serverless:
+    DB_PATH = Path("/tmp/policyai.db")
+else:
+    try:
+        DB_PATH = _BACKEND_DIR / "data" / "policyai.db"
+        DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        DB_PATH = Path("/tmp/policyai.db")
 
 DATABASE_URL = f"sqlite:///{DB_PATH}"
 
